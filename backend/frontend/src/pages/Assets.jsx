@@ -45,8 +45,15 @@ function ViolationDrawer({ asset, onClose, onStatusUpdate }) {
 
   return (
     <div className="fixed inset-0 z-50 flex">
-      <div className="flex-1 bg-black bg-opacity-60" onClick={onClose} />
+      {/* backdrop */}
+      <div
+        className="flex-1 bg-black bg-opacity-60"
+        onClick={onClose}
+      />
+
+      {/* drawer */}
       <div className="w-full max-w-lg bg-gray-900 border-l border-gray-800 flex flex-col overflow-hidden">
+        {/* header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-800">
           <div>
             <p className="text-white font-semibold">{asset.assetName}</p>
@@ -54,11 +61,15 @@ function ViolationDrawer({ asset, onClose, onStatusUpdate }) {
               {asset.sport} · {asset.organization}
             </p>
           </div>
-          <button onClick={onClose} className="text-gray-400 hover:text-white transition">
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-white transition"
+          >
             <X size={20} />
           </button>
         </div>
 
+        {/* body */}
         <div className="flex-1 overflow-y-auto p-6">
           {loading ? (
             <p className="text-gray-500 text-sm">Loading violations...</p>
@@ -74,13 +85,20 @@ function ViolationDrawer({ asset, onClose, onStatusUpdate }) {
                 {violations.length} violation{violations.length > 1 ? "s" : ""} detected
               </p>
               {violations.map((v) => (
-                <div key={v.violationId} className="bg-gray-800 border border-gray-700 rounded-xl p-4">
+                <div
+                  key={v.violationId}
+                  className="bg-gray-800 border border-gray-700 rounded-xl p-4"
+                >
                   <div className="flex items-start justify-between gap-2 mb-3">
                     <div>
                       <p className="text-white text-sm font-medium">{v.domain}</p>
                       <p className="text-gray-400 text-xs mt-0.5">{v.title}</p>
                     </div>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium flex-shrink-0 ${statusColors[v.status] || "bg-gray-700 text-gray-300"}`}>
+                    <span
+                      className={`px-2 py-1 rounded-full text-xs font-medium flex-shrink-0 ${
+                        statusColors[v.status] || "bg-gray-700 text-gray-300"
+                      }`}
+                    >
                       {v.status.replace("_", " ")}
                     </span>
                   </div>
@@ -97,48 +115,30 @@ function ViolationDrawer({ asset, onClose, onStatusUpdate }) {
                   <div className="flex items-center justify-between text-xs text-gray-400 mb-3">
                     <span>
                       Confidence:{" "}
-                      <span className={v.confidenceScore > 75 ? "text-red-400 font-semibold" : "text-yellow-400 font-semibold"}>
+                      <span
+                        className={
+                          v.confidenceScore > 75
+                            ? "text-red-400 font-semibold"
+                            : "text-yellow-400 font-semibold"
+                        }
+                      >
                         {v.confidenceScore}%
                       </span>
                     </span>
                     <span>{new Date(v.detectedAt).toLocaleDateString()}</span>
                   </div>
 
-                  <div className="flex flex-col gap-1 mt-2 mb-3">
-                    {v["pageUrl"] && (
-                      <a
-                        href={v["pageUrl"]}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1 text-blue-400 text-xs hover:text-blue-300 transition"
-                      >
-                        <ExternalLink size={11} />
-                        View Page Where Found
-                      </a>
-                    )}
-                    {v["sourceUrl"] && v["sourceUrl"] !== v["pageUrl"] && (
-                      <a
-                        href={v["sourceUrl"]}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1 text-blue-400 text-xs hover:text-blue-300 transition"
-                      >
-                        <ExternalLink size={11} />
-                        View Source
-                      </a>
-                    )}
-                    {v["directImageUrl"] && (
-                      <a
-                        href={v["directImageUrl"]}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1 text-gray-400 text-xs hover:text-gray-300 transition"
-                      >
-                        <ExternalLink size={11} />
-                        View Direct Image
-                      </a>
-                    )}
-                  </div>
+                  {v.sourceUrl && (
+                    <a
+                      href={v["sourceUrl"]}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 text-blue-400 text-xs hover:text-blue-300 transition mb-3"
+                    >
+                      <ExternalLink size={11} />
+                      View Source
+                    </a>
+                  )}
 
                   <div className="flex flex-wrap gap-2">
                     {v.status !== "resolved" && (
@@ -268,6 +268,7 @@ export default function Assets() {
         </p>
       </div>
 
+      {/* Upload Form */}
       <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 mb-8">
         <h2 className="text-white font-semibold mb-4">Upload New Asset</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
@@ -309,6 +310,7 @@ export default function Assets() {
         </button>
       </div>
 
+      {/* Assets Table */}
       <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
         <h2 className="text-white font-semibold mb-4">Your Assets</h2>
         {loading ? (
@@ -334,7 +336,10 @@ export default function Assets() {
               </thead>
               <tbody>
                 {assets.map((asset) => (
-                  <tr key={asset.assetId} className="border-b border-gray-800 hover:bg-gray-800 transition">
+                  <tr
+                    key={asset.assetId}
+                    className="border-b border-gray-800 hover:bg-gray-800 transition"
+                  >
                     <td className="py-3">
                       <button
                         onClick={() => setSelectedAsset(asset)}

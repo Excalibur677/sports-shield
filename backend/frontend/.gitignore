@@ -22,13 +22,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-# .gitignore
-node_modules/
-.env
-serviceAccountKey.json
-*.log
-serviceAccountKey.json
-node_modules/
-.env
-uploads/
-serviceAccountKey.json
