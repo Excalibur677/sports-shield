@@ -3,7 +3,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { ShieldAlert, ExternalLink, Filter } from "lucide-react";
 
-const API = "http://localhost:5000/api";
+const API = "https://sports-shield-backend.onrender.com/api";
 
 const statusColors = {
   flagged: "bg-red-900 text-red-300",

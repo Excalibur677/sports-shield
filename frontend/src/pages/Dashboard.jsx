@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ShieldAlert, ImagePlay, ScanSearch, CheckCircle } from "lucide-react";
 import axios from "axios";
 
-const API = "http://localhost:5000/api";
+const API = "https://sports-shield-backend.onrender.com/api";
 
 function StatCard({ icon: Icon, label, value, color }) {
   return (
